@@ -1,21 +1,17 @@
-import ReactDOM from "react-dom";
-import React from "react";
-import { Store, Stores, StoreState } from "./StoresTypes";
+export type StoreState = Record<PropertyKey, unknown>;
 
-let stores: Stores = {};
-let storeId = 0;
-
-const useStore = () => {};
+export type SetState<State extends StoreState> = (
+  state: State | ((prevState: State) => State),
+) => State;
 
 const createStore = <State extends StoreState>(initialState: State) => {
-  const id = storeId++;
-  let store: Store<State> =  {
-    state: initialState,
-    getState: () => store.state,
-    setState: (state) => (store.state = typeof state === "function" ? state(store.state) : state),
-  };
+  let state: State = initialState;
 
-  stores[id] = store as Store<StoreState>
+  const setState: SetState<State> = (newState) => (state = typeof newState === "function" ? newState(state) : newState),
+
+  return (): [State, SetState<State>] => {
+    return [state, setState]
+  };
 };
 
 export default createStore;
