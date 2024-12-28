@@ -21,5 +21,8 @@
   "homepage": "https://github.com/adagit94/bag#readme",
   "devDependencies": {
     "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "react": "^19.0.0"
   }
 }
