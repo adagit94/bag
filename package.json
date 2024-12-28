@@ -2,6 +2,7 @@
   "name": "bag",
   "version": "0.0.0",
   "description": "React store for easy, straightforward usage and extension.",
+  "type": "module",
   "scripts": {},
   "repository": {
     "type": "git",
@@ -20,9 +21,12 @@
   },
   "homepage": "https://github.com/adagit94/bag#readme",
   "devDependencies": {
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "react": "^19.0.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }
