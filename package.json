@@ -1,7 +1,7 @@
 {
   "name": "bag",
-  "version": "0.0.0",
-  "description": "React store for easy, straightforward usage and extension.",
+  "version": "1.0.0",
+  "description": "React store for easy, straightforward non-hiearchical usage and extension.",
   "type": "module",
   "scripts": {},
   "repository": {
@@ -9,10 +9,13 @@
     "url": "git+https://github.com/adagit94/bag.git"
   },
   "keywords": [
-    "React",
+    "react",
     "store",
     "state",
-    "management"
+    "management",
+    "broadcast",
+    "flat",
+    "non-hiearchical"
   ],
   "author": "Adam Pelc",
   "license": "ISC",
