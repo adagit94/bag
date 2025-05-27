@@ -10,9 +10,16 @@ type Subscription = {
 };
 
 type SetState<State extends StoreState> = (state: State | ((prevState: State) => State)) => State;
+type InitState<State extends StoreState> = (get: () => State, set: SetState<State>) => State;
 
-const createStore = <State extends StoreState>(initialState: State) => {
-  let state: State = initialState;
+const createStore = <State extends StoreState>(initState: State | InitState<State>) => {
+  let state: State =
+    typeof initState === "function"
+      ? initState(
+          () => state,
+          (newState) => setState(newState)
+        )
+      : initState;
 
   let subscriptionId = 0;
   let subscriptions: Subscription[] = [];
