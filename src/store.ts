@@ -9,7 +9,7 @@ type Subscription = {
   trigger: () => void;
 };
 
-type SetState<State extends StoreState> = (state: State | ((prevState: State) => State)) => State;
+type SetState<State extends StoreState> = (stateUpdate: Partial<State> | ((prevState: State) => Partial<State>)) => State;
 type InitState<State extends StoreState> = (get: () => State, set: SetState<State>) => State;
 
 const createStore = <State extends StoreState>(initState: State | InitState<State>) => {
@@ -17,15 +17,15 @@ const createStore = <State extends StoreState>(initState: State | InitState<Stat
     typeof initState === "function"
       ? initState(
           () => state,
-          (newState) => setState(newState)
+          (stateUpdate) => setState(stateUpdate)
         )
       : initState;
 
   let subscriptionId = 0;
   let subscriptions: Subscription[] = [];
 
-  const setState: SetState<State> = (newState) => {
-    state = typeof newState === "function" ? newState(state) : newState;
+  const setState: SetState<State> = (stateUpdate) => {
+    state = { ...state, ...(typeof stateUpdate === "function" ? stateUpdate(state) : stateUpdate) };
 
     for (const subscription of subscriptions) {
       flushSync(subscription.trigger);
