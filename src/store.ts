@@ -43,13 +43,13 @@ const createStore = <State extends StoreState>(initState: State | InitState<Stat
   };
 
   return function useStore({ priority = 0 }: Partial<{ priority: number }> = {}): [State, SetState<State>] {
-    const [_, setCounter] = useState(0);
+    const [_, setRerender] = useState(false);
 
     useEffect(() => {
       const subscription: Subscription = {
         priority,
         id: subscriptionId++,
-        trigger: () => setCounter((v) => v + 1),
+        trigger: () => setRerender((v) => !v),
       };
 
       subscribe(subscription);
